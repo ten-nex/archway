@@ -88,7 +88,7 @@ func local_request_Query_EstimateCallbackFees_0(ctx context.Context, marshaler r
 }
 
 var (
-	filter_Query_Callbacks_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_Query_Callbacks_0 = &utilities.DoubleArray{Encoding: map[string]int{"pagination.key": 0, "pagination.offset": 1, "pagination.limit": 2, "pagination.count_total": 3, "pagination.reverse": 4}, Base: []int{1, 1, 4, 1, 1, 0, 0}, Check: []int{0, 1, 2, 3, 4, 5, 6}}
 )
 
 func request_Query_Callbacks_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -303,17 +303,4 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"archway", "callback", "v1", "params"}, "", runtime.AssumeColonVerbOpt(false)))
-
-	pattern_Query_EstimateCallbackFees_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"archway", "callback", "v1", "estimate_callback_fees"}, "", runtime.AssumeColonVerbOpt(false)))
-
-	pattern_Query_Callbacks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"archway", "callback", "v1", "callbacks"}, "", runtime.AssumeColonVerbOpt(false)))
-)
-
-var (
-	forward_Query_Params_0 = runtime.ForwardResponseMessage
-
-	forward_Query_EstimateCallbackFees_0 = runtime.ForwardResponseMessage
-
-	forward_Query_Callbacks_0 = runtime.ForwardResponseMessage
-)
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2,

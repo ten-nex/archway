@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package archway.callback.v1;
+
+import "cosmos/base/query/v1beta1/pagination.proto";
+
+// QueryCallbacksRequest is the request type for the Query/Callbacks gRPC method
+message QueryCallbacksRequest {
+  // block_height of the requested block
+  int64 block_height = 1;
+  // pagination defines an optional pagination for the request
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+// QueryCallbacksResponse is the response type for the Query/Callbacks gRPC method
+message QueryCallbacksResponse {
+  // Callbacks are the callbacks at the requested height
+  repeated Callback callbacks = 1;
+  // pagination defines the pagination in the response
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// Query is the Query service for the callback module.
+service Query {
+  rpc Callbacks(QueryCallbacksRequest) returns (QueryCallbacksResponse);
+  // (omitting other rpc methods for brevity)
+}
