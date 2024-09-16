@@ -112,3 +112,19 @@ func (k Keeper) RefundFromCallbackModule(ctx sdk.Context, recipient string, amou
 func (k Keeper) SendToFeeCollector(ctx sdk.Context, amount sdk.Coin) error {
 	return k.bankKeeper.SendCoinsFromModuleToModule(ctx, types.ModuleName, authTypes.FeeCollectorName, sdk.NewCoins(amount))
 }
+
+// GetCallbacksByHeight returns the callbacks registered at a given height.
+func (k Keeper) GetCallbacksByHeight(ctx sdk.Context, height int64) ([]types.Callback, error) {
+	var callbacks []types.Callback
+	iterator := k.Callbacks.Iterator(ctx, height)
+	defer iterator.Close()
+	for ; iterator.Valid(); iterator.Next() {
+		var callback types.Callback
+		err := k.cdc.Unmarshal(iterator.Value(), &callback)
+		if err != nil {
+			return nil, err
+		}
+		callbacks = append(callbacks, callback)
+	}
+	return callbacks, nil
+}

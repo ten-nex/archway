@@ -4,6 +4,7 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -30,13 +31,24 @@ func (qs *QueryServer) Callbacks(c context.Context, request *types.QueryCallback
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	callbacks, err := qs.keeper.GetCallbacksByHeight(sdk.UnwrapSDKContext(c), request.GetBlockHeight())
+	ctx := sdk.UnwrapSDKContext(c)
+
+	var callbacks []*types.Callback
+	pageRes, err := query.Paginate(qs.keeper.Callbacks.Iterator(ctx, request.BlockHeight), request.Pagination, func(key []byte, value []byte) error {
+		var callback types.Callback
+		if err := qs.keeper.cdc.Unmarshal(value, &callback); err != nil {
+			return err
+		}
+		callbacks = append(callbacks, &callback)
+		return nil
+	})
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "could not fetch the callbacks at height %d: %s", request.GetBlockHeight(), err.Error())
 	}
 
 	return &types.QueryCallbacksResponse{
-		Callbacks: callbacks,
+		Callbacks:  callbacks,
+		Pagination: pageRes,
 	}, nil
 }
 
