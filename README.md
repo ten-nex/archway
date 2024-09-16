@@ -72,6 +72,8 @@ make localnet-continue
 
 ### Local
 
+The mnemonics for the main wallets with all the required balance can be found in the [localnet script](https://github.com/archway-network/archway/blob/main/scripts/localnet.sh).
+
 ## Documentation
 
 To learn more, please [visit the official Archway documentation](https://docs.archway.io).
