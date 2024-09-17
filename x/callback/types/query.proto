@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package archway.callback.v1;
+
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "google/protobuf/any.proto";
+import "gogoproto/gogo.proto";
+import "cosmos_proto/cosmos.proto";
+
+option go_package = "github.com/archway-network/archway/x/callback/types";
+
+message QueryCallbacksRequest {
+  int64 block_height = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2 [(gogoproto.nullable) = false];
+}
+
+message QueryCallbacksResponse {
+  repeated Callback callbacks = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2 [(gogoproto.nullable) = false];
+}
+
+message Callback {
+  string id = 1;
+  string data = 2;
+}
+
+service Query {
+  rpc Callbacks(QueryCallbacksRequest) returns (QueryCallbacksResponse);
+}
