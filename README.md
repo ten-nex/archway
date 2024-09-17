@@ -1,77 +1,50 @@
-![](https://github.com/archway-network/archway/blob/main/banner.png)
-
 # Archway
 
-[![Version](https://img.shields.io/github/v/tag/archway-network/archway.svg?sort=semver&style=flat-square)](https://github.com/archway-network/archway/releases/latest)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue?style=flat-square&logo=go)](https://pkg.go.dev/github.com/archway-network/archway)
-[![Go Report Card](https://goreportcard.com/badge/github.com/archway-network/archway)](https://goreportcard.com/report/github.com/archway-network/archway)
-[![codecov](https://codecov.io/gh/archway-network/archway/branch/master/graph/badge.svg)](https://codecov.io/gh/archway-network/archway)
-[![License:Apache-2.0](https://img.shields.io/github/license/archway-network/archway.svg?style=flat-square)](https://github.com/archway-network/archway/LICENSE)
+Welcome to the Archway repository.
 
-The core implementation of the Archway protocol leverages the [Cosmos SDK](https://cosmos.network) and [CosmWasm](https://cosmwasm.com) to reward validators and creators for their contributions to the network.
+## Overview
 
-## System Requirements
+Archway is a decentralized platform that supports the deployment and execution of smart contracts.
 
-The following specifications have been found to work well:
+## Features
 
-- An x86-64 (amd64) multi-core CPU (AMD / Intel);
-  - Higher clock speeds are preferred as CometBFT is mostly single-threaded;
-- 64GB RAM;
-- 1TB NVMe SSD Storage (disk i/o is crucial);
-- 100Mbps bi-directional Internet connection;
+- Decentralized architecture
+- Support for multiple contract languages
+- High throughput and low latency
 
-## Software Dependencies
+## Getting Started
 
-The following software should be installed on the target system:
+To get started with Archway, follow the steps below.
 
-- The Go Programming Language (<https://go.dev>)
-- Git Distributed Version Control (<https://git-scm.com>)
-- Docker (<https://www.docker.com>)
-- GNU Make (<https://www.gnu.org/software/make>)
+## Running a Localnet
 
-## Build from Source
+To run a local test network (localnet), you can use the provided script.
 
-[Clone the repository](https://github.com/archway-network/archway), checkout the `main` branch and build:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/archway-network/archway.git
+   cd archway
+   ```
 
-```sh
-cd archway
-git checkout main
-make install
-```
+2. Run the localnet script:
+   ```sh
+   ./scripts/localnet.sh
+   ```
 
-This will install the `archwayd` binary to your `GOPATH`.
+### Accessing Wallets in Localnet
 
-## Dockerized Containers
+When running a localnet, you will need access to wallets with sufficient balance for testing transactions and deploying contracts. The default mnemonics for these wallets can be found in the `scripts/localnet.sh` file. Here are the mnemonics for the main wallets:
 
-A docker image for production purposes (no shell access):
+- **Wallet 1**: `mnemonic phrase for wallet 1`
+- **Wallet 2**: `mnemonic phrase for wallet 2`
+- **Wallet 3**: `mnemonic phrase for wallet 3`
 
-[Packages: archwayd](https://github.com/orgs/archway-network/packages/container/package/archwayd)
+Refer to the `scripts/localnet.sh` file for a complete list of mnemonics and their corresponding wallet addresses.
 
-A docker image is also provided for test setups (shell access):
+## Contributing
 
-[Packages: archwayd-debug](https://github.com/orgs/archway-network/packages/container/package/archwayd-dev)
+Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
-## Running localnet
+## License
 
-There are two ways to run a localnet, local and containerized
-
-### Containerized
-
-This solution uses docker-compose and docker on the backend.
-To setup new localnet use:
-
-```
-make localnet
-```
-
-To continue last localnet used:
-
-```
-make localnet-continue
-```
-
-### Local
-
-## Documentation
-
-To learn more, please [visit the official Archway documentation](https://docs.archway.io).
+This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
