@@ -72,6 +72,23 @@ make localnet-continue
 
 ### Local
 
+The localnet setup script includes the mnemonics for the main wallets preloaded with the necessary balances. The mnemonics can be found in the file `scripts/localnet.sh`.
+
+**Validator Wallet:**
+```
+guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host
+```
+
+**Developer Wallet:**
+```
+friend excite rough reopen cover wheel spoon convince island path clean monkey play snow number walnut pull lock shoot hurry dream divide concert discover
+```
+
+**User Wallet:**
+```
+any giant turtle pioneer frequent frown harvest ancient episode junior vocal rent shrimp icon idle echo suspect clean cage eternal sample post heavy enough
+```
+
 ## Documentation
 
 To learn more, please [visit the official Archway documentation](https://docs.archway.io).
