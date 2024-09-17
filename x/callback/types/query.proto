@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package archway.callback.v1;
+
+import "google/protobuf/any.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+
+option go_package = "github.com/archway-network/archway/x/callback/types";
+
+// QueryCallbacksRequest is the request type for the Query/Callbacks RPC method.
+message QueryCallbacksRequest {
+    int64 block_height = 1;
+    cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+// QueryCallbacksResponse is the response type for the Query/Callbacks RPC method.
+message QueryCallbacksResponse {
+    repeated Callback callbacks = 1;
+    cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// Query service for querying module states.
+service Query {
+    rpc Callbacks(QueryCallbacksRequest) returns (QueryCallbacksResponse) {
+        option (google.api.http).get = "/archway/callback/v1/callbacks";
+    }
+    // ...
+}
