@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package archway.callback.v1;
+
+import "cosmos_sdk/base/v1beta1/pagination.proto";
+import "cosmos_sdk/types/time.proto";
+
+option go_package = "github.com/archway-network/archway/x/callback/types";
+
+message QueryCallbacksRequest {
+    int64 block_height = 1;
+    cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryCallbacksResponse {
+    repeated Callback callbacks = 1;
+    cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+service Query {
+    rpc Callbacks(QueryCallbacksRequest) returns (QueryCallbacksResponse);
+}

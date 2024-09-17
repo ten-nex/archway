@@ -30,13 +30,15 @@ func (qs *QueryServer) Callbacks(c context.Context, request *types.QueryCallback
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	callbacks, err := qs.keeper.GetCallbacksByHeight(sdk.UnwrapSDKContext(c), request.GetBlockHeight())
+	ctx := sdk.UnwrapSDKContext(c)
+	callbacks, pageRes, err := qs.keeper.GetCallbacksByHeightPaginated(ctx, request.GetBlockHeight(), request.Pagination)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "could not fetch the callbacks at height %d: %s", request.GetBlockHeight(), err.Error())
 	}
 
 	return &types.QueryCallbacksResponse{
-		Callbacks: callbacks,
+		Callbacks:   callbacks,
+		Pagination: pageRes,
 	}, nil
 }
 
