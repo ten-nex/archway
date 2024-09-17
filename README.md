@@ -72,6 +72,33 @@ make localnet-continue
 
 ### Local
 
+To set up a localnet natively, you can run the following script:
+
+```sh
+./scripts/localnet.sh
+```
+
+This script initializes and starts the localnet.
+
+### Accessing Wallets and Balances
+
+When running a localnet, the default mnemonics for the wallets with all the required balance are defined in the `scripts/localnet.sh` file. Here are the mnemonics for the main wallets:
+
+- Validator: 
+  ```
+  guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host
+  ```
+- Developer:
+  ```
+  friend excite rough reopen cover wheel spoon convince island path clean monkey play snow number walnut pull lock shoot hurry dream divide concert discover
+  ```
+- User:
+  ```
+  any giant turtle pioneer frequent frown harvest ancient episode junior vocal rent shrimp icon idle echo suspect clean cage eternal sample post heavy enough
+  ```
+
+These wallets will have sufficient balance to perform testing regarding transactions and deployments of contracts.
+
 ## Documentation
 
 To learn more, please [visit the official Archway documentation](https://docs.archway.io).
