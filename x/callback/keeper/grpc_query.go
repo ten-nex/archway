@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"google.golang.org/grpc/codes"
@@ -30,7 +31,16 @@ func (qs *QueryServer) Callbacks(c context.Context, request *types.QueryCallback
 		return nil, status.Error(codes.InvalidArgument, "empty request")
 	}
 
-	callbacks, err := qs.keeper.GetCallbacksByHeight(sdk.UnwrapSDKContext(c), request.GetBlockHeight())
+	ctx := sdk.UnwrapSDKContext(c)
+
+	if request.Page < 1 {
+		return nil, status.Error(codes.InvalidArgument, "page must be greater than 0")
+	}
+	if request.Limit < 1 {
+		return nil, status.Error(codes.InvalidArgument, "limit must be greater than 0")
+	}
+
+	callbacks, err := qs.keeper.GetCallbacksByHeight(ctx, request.GetBlockHeight(), request.Page, request.Limit)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "could not fetch the callbacks at height %d: %s", request.GetBlockHeight(), err.Error())
 	}
