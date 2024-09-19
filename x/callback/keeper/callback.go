@@ -28,6 +28,37 @@ func (k Keeper) GetCallbacksByHeight(ctx sdk.Context, height int64) (callbacks [
 	return callbacks, err
 }
 
+// GetCallbacksByHeightWithPagination returns the callbacks registered for the given height with pagination
+func (k Keeper) GetCallbacksByHeightWithPagination(ctx sdk.Context, height int64, pageRequest *types.PageRequest) (callbacks []*types.Callback, total int64, err error) {
+	rng := collections.NewPrefixedTripleRange[int64, []byte, uint64](height)
+	
+	err = k.Callbacks.Walk(ctx, rng, func(key collections.Triple[int64, []byte, uint64], value types.Callback) (bool, error) {
+		callbacks = append(callbacks, &value)
+		return false, nil
+	})
+	if err != nil {
+		return nil, 0, err
+	}
+
+	total = int64(len(callbacks))
+	if pageRequest != nil {
+		if offset := pageRequest.GetOffset(); offset < total {
+			if limit := pageRequest.GetLimit(); limit > 0 {
+				if offset+limit > total {
+					limit = total - offset
+				}
+				callbacks = callbacks[offset : offset+limit]
+			} else {
+				callbacks = callbacks[offset:]
+			}
+		} else {
+			callbacks = nil
+		}
+	}
+
+	return callbacks, total, nil
+}
+
 // IterateCallbacksByHeight iterates over callbacks for registered for the given height and executes them
 func (k Keeper) IterateCallbacksByHeight(ctx sdk.Context, height int64, exec func(types.Callback) bool) {
 	rng := collections.NewPrefixedTripleRange[int64, []byte, uint64](height)
